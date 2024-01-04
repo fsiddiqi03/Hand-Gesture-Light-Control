@@ -1,9 +1,8 @@
 import json
 import requests
+from config import USERNAME
 
 
-
-USERNAME = 'WsfVEVewL-anLIY2bNfxBP5QNFIIt2aK52htFMGA'
 BRIDGE_IP = '10.0.0.239'
 LIGHT_ID = 1
 
