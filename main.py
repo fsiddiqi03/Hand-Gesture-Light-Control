@@ -18,18 +18,43 @@ def main():
 
         img = detector.findHands(img)
         lmList = detector.findPos(img)
+        tipIds = [4, 8, 12, 16, 20]
         if len(lmList) != 0:
+
+
+            # save what fingers are up and which are down 
+            fingers = []
+            # check if thumb is up or down 
+            if lmList[tipIds[0]][1] > lmList[tipIds[0]-1][1]:
+                fingers.append(1)
+            else:
+                fingers.append(0)
+
+            # check which finger is up or down 
+            for id in range(1,5):
+                # compare the y at the tip if the finger to the y of the point below it
+                if lmList[tipIds[id]][2] < lmList[tipIds[id]-2][2]:
+                    fingers.append(1)
+                else:
+                    fingers.append(0)
+
+
             # get x, y positions of thumb 
             thumb = lmList[4]
             # get x, y positions of finger 
             index = lmList[8]
             # get distance of the two
             distance = get_distance(thumb, index)
-            print(distance)
             # conver the distance to a percentage
             percent = convert_to_percent(distance)
             # change brightness to percent given by distnace 
             hue.brightness(percent)
+
+            if fingers.count(0) == 5:
+                hue.turnOFF()
+
+            if fingers.count(1) == 5:
+                hue.turnON()
 
             # present current brightness percent on screen 
             cv2.putText(img, str(percent), (10,70), cv2.FONT_HERSHEY_PLAIN, 3, (0, 255, 0), 3)
@@ -66,6 +91,8 @@ def convert_to_percent(distance):
     percent = int(distance)
     return percent
 
+
+    
 
 
 if __name__ == "__main__":
