@@ -23,6 +23,12 @@ Install the required Python libraries:
 pip install mediapipe opencv-python requests
 ```
 
+### Obtaining HUE bridge ip:
+
+Refer to HUE api documentation to get your bridge IP and Light ID
+Use HUE API v2
+[HUE API Doc](https://developers.meethue.com/develop/hue-api-v2/)
+
 Running the Application
 To run the application, you need to set up the configuration file `config.py` with your Philips HUE bridge IP, light ID, and username (API key). Here’s a template for `config.py`:
 
